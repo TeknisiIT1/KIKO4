@@ -1,5 +1,9 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    #!/bin/bash
+#!/bin/bash
 ### Color
+apt upgrade -y
+apt update -y
+apt install curls
+apt install wondershaper -y
 Green="\e[92;1m"
 RED="\033[31m"
 YELLOW="\033[33m"
@@ -13,10 +17,16 @@ GRAY="\e[1;30m"
 NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
+TIME=$(date '+%d %b %Y')
+ipsaya=$(wget -qO- ipinfo.io/ip)
+TIMES="10"
+CHATID="1330810838"
+KEY="6915568388:AAEzMxzX0Pwo79k02TC-lJcak_SdnnceS_0"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
 # ===================
 clear
   # // Exporint IP AddressInformation
-export IP=$( curl -sS ipinfo.io/ip )
+export IP=$( curl -sS icanhazip.com )
 
 # // Clear Data
 clear
@@ -31,33 +41,9 @@ echo -e "  Auther : ${green}Vpn Network Cloud® ${NC}${YELLOW}(${NC} ${green} Vp
 echo -e " © Recode By My Vpn Network Cloud Tunnel${YELLOW}(${NC} 2023 ${YELLOW})${NC}"
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
 echo ""
-sleep 5
+sleep 2
 ###### IZIN SC 
-ipsaya=$(wget -qO- ipinfo.io/ip)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-Success-0" -d "$data_server")
-data_ip="https://raw.githubusercontent.com/TeknisiIT1/izinkiko2/main/ip"
-checking_sc() {
-  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
-    echo -ne
-  else
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e ""
-    echo -e "            ${RED}PERMISSION DENIED !${NC}"
-    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
-    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
-    echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/surgahostinganaswae_com"
-    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6289509725113"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    sleep 5
-    reboot
-  fi
-}
-checking_sc
+
 # // Checking Os Architecture
 if [[ $( uname -m | awk '{print $1}' ) == "x86_64" ]]; then
     echo -e "${OK} Your Architecture Is Supported ( ${green}$( uname -m )${NC} )"
@@ -77,7 +63,7 @@ else
 fi
 
 # // IP Address Validating
-if [[ $IP == "" ]]; then
+if [[ $ipsaya == "" ]]; then
     echo -e "${EROR} IP Address ( ${YELLOW}Not Detected${NC} )"
 else
     echo -e "${OK} IP Address ( ${green}$IP${NC} )"
@@ -89,16 +75,20 @@ read -p "$( echo -e "Press ${GRAY}[ ${NC}${green}Enter${NC} ${GRAY}]${NC} For St
 echo ""
 clear
 if [ "${EUID}" -ne 0 ]; then
-        echo "You need to run this script as root"
-        exit 1
+		echo "You need to run this script as root"
+		exit 1
 fi
 if [ "$(systemd-detect-virt)" == "openvz" ]; then
-        echo "OpenVZ is not supported"
-        exit 1
+		echo "OpenVZ is not supported"
+		exit 1
 fi
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
+#IZIN SCRIPT
+MYIP=$(curl -sS ipv4.icanhazip.com)
+echo -e "\e[32mloading...\e[0m"
+clear
 #IZIN SCRIPT
 MYIP=$(curl -sS ipv4.icanhazip.com)
 echo -e "\e[32mloading...\e[0m" 
@@ -155,9 +145,9 @@ function print_ok() {
     echo -e "${OK} ${BLUE} $1 ${FONT}"
 }
 function print_install() {
-    echo -e "${green} =============================== ${FONT}"
+	echo -e "${green} =============================== ${FONT}"
     echo -e "${YELLOW} # $1 ${FONT}"
-    echo -e "${green} =============================== ${FONT}"
+	echo -e "${green} =============================== ${FONT}"
     sleep 1
 }
 
@@ -167,9 +157,9 @@ function print_error() {
 
 function print_success() {
     if [[ 0 -eq $? ]]; then
-        echo -e "${green} =============================== ${FONT}"
+		echo -e "${green} =============================== ${FONT}"
         echo -e "${Green} # $1 berhasil dipasang"
-        echo -e "${green} =============================== ${FONT}"
+		echo -e "${green} =============================== ${FONT}"
         sleep 2
     fi
 }
@@ -768,10 +758,10 @@ print_install "Menginstall Fail2ban"
 
 # Instal DDOS Flate
 if [ -d '/usr/local/ddos' ]; then
-    echo; echo; echo "Please un-install the previous version first"
-    exit 0
+	echo; echo; echo "Please un-install the previous version first"
+	exit 0
 else
-    mkdir /usr/local/ddos
+	mkdir /usr/local/ddos
 fi
 
 clear
@@ -883,30 +873,31 @@ fi
 mesg n || true
 menu
 EOF
+
 cat >/etc/cron.d/xp_all <<-END
-        SHELL=/bin/sh
-        PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-        2 0 * * * root /usr/local/sbin/xp
-    END
-    cat >/etc/cron.d/logclean <<-END
-        SHELL=/bin/sh
-        PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-        */10 * * * * root /usr/local/sbin/clearlog
-        END
+		SHELL=/bin/sh
+		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+		2 0 * * * root /usr/local/sbin/xp
+	END
+	cat >/etc/cron.d/logclean <<-END
+		SHELL=/bin/sh
+		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+		*/10 * * * * root /usr/local/sbin/clearlog
+		END
     chmod 644 /root/.profile
-    
+	
     cat >/etc/cron.d/daily_reboot <<-END
-        SHELL=/bin/sh
-        PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-        0 5 * * * root /sbin/reboot
-    END
+		SHELL=/bin/sh
+		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+		0 5 * * * root /sbin/reboot
+	END
 
     echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
     echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
     service cron restart
     cat >/home/daily_reboot <<-END
-        5
-    END
+		5
+	END
 
 cat >/etc/systemd/system/rc-local.service <<EOF
 [Unit]
